@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32106.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareStore.Webapi", "HardwareStore.Webapi\HardwareStore.Webapi.csproj", "{C0776830-3D7D-4D1F-9E45-9F1912D2E667}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareStore.Db", "HardwareStore.Db\HardwareStore.Db.csproj", "{4BB0B99E-BCA9-465C-9EA7-7CD594363102}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0776830-3D7D-4D1F-9E45-9F1912D2E667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0776830-3D7D-4D1F-9E45-9F1912D2E667}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0776830-3D7D-4D1F-9E45-9F1912D2E667}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0776830-3D7D-4D1F-9E45-9F1912D2E667}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BB0B99E-BCA9-465C-9EA7-7CD594363102}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BB0B99E-BCA9-465C-9EA7-7CD594363102}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BB0B99E-BCA9-465C-9EA7-7CD594363102}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BB0B99E-BCA9-465C-9EA7-7CD594363102}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B9F8AF06-AD53-4628-9387-379AF55AC871}
+	EndGlobalSection
+EndGlobal
