@@ -1,12 +1,20 @@
+using HardwareStore.Core.AutoMapper;
+using HardwareStore.Core.Interfaces;
+using HardwareStore.Core.Services;
 using HardwareStore.Db;
+using HardwareStore.Db.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Text;
 
 namespace HardwareStore.Webapi
 {
@@ -64,6 +72,31 @@ namespace HardwareStore.Webapi
                             .AllowAnyMethod();
                     });
             });
+
+            var secret = Environment.GetEnvironmentVariable("JWT_SECRET");
+            var issuer = Environment.GetEnvironmentVariable("JWT_ISSUER");
+
+            services.AddAuthentication(opts =>
+            {
+                opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(opts =>
+            {
+                opts.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = issuer,
+                    ValidateAudience = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secret))
+                };
+            });
+
+            services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddTransient<IUserService, UserService>();
+
+
+            services.AddAutoMapper(typeof(AppMappingProfile));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,6 +114,8 @@ namespace HardwareStore.Webapi
             app.UseRouting();
 
             app.UseCors("HardwareStorePolicy");
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
