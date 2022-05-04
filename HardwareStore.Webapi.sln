@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32106.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareStore.Webapi", "HardwareStore.Webapi\HardwareStore.Webapi.csproj", "{C0776830-3D7D-4D1F-9E45-9F1912D2E667}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HardwareStore.Webapi", "HardwareStore.Webapi\HardwareStore.Webapi.csproj", "{C0776830-3D7D-4D1F-9E45-9F1912D2E667}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareStore.Db", "HardwareStore.Db\HardwareStore.Db.csproj", "{4BB0B99E-BCA9-465C-9EA7-7CD594363102}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HardwareStore.Db", "HardwareStore.Db\HardwareStore.Db.csproj", "{4BB0B99E-BCA9-465C-9EA7-7CD594363102}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareStore.Core", "HardwareStore.Core\HardwareStore.Core.csproj", "{3F5ABC36-8C37-4152-86F2-BBDE9FAD7EA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{4BB0B99E-BCA9-465C-9EA7-7CD594363102}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BB0B99E-BCA9-465C-9EA7-7CD594363102}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BB0B99E-BCA9-465C-9EA7-7CD594363102}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F5ABC36-8C37-4152-86F2-BBDE9FAD7EA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F5ABC36-8C37-4152-86F2-BBDE9FAD7EA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F5ABC36-8C37-4152-86F2-BBDE9FAD7EA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F5ABC36-8C37-4152-86F2-BBDE9FAD7EA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
