@@ -33,7 +33,7 @@ namespace HardwareStore.Core.Services
                 dbUser.Password == null ||
                 _passwordHasher.VerifyHashedPassword(dbUser, dbUser.Password, loginRequest.Password) == PasswordVerificationResult.Failed)
             {
-                throw new InvalidUsernameOrPasswordException("Неверное имя пользователя или пароль");
+                throw new InvalidUsernameOrPasswordException("Неверное имя пользователя или пароль.");
             }
 
             return new AuthInfo()
@@ -49,7 +49,7 @@ namespace HardwareStore.Core.Services
 
             if (checkUsername != null)
             {
-                throw new UsernameAlreadyExistsException("Такой логин уже занят!");
+                throw new UsernameAlreadyExistsException("Такой логин уже занят.");
             }
 
             if (!string.IsNullOrEmpty(user.Password))
@@ -62,6 +62,36 @@ namespace HardwareStore.Core.Services
             await _context.SaveChangesAsync();
 
             return _mapper.Map<RegisteredUser>(user);
+        }
+
+        public async Task<UserInfoDto> GetInfo(int userId)
+        {
+            var dbUser = await _context.UsersInfo.FirstOrDefaultAsync(u => u.User.Id.Equals(userId));
+
+            if (dbUser == null) throw new UserNotFoundException("Пользователь не найден.");
+
+            return _mapper.Map<UserInfoDto>(dbUser);
+        }
+
+        public async Task<UserInfoDto> EditInfo(UserInfoDto info, int userId)
+        {
+            var dbUser = await _context.Users.Include(u => u.Info).FirstOrDefaultAsync(u => u.Id.Equals(userId));
+
+            if (dbUser == null) throw new UserNotFoundException("Пользователь не найден.");
+
+            foreach(var property in info.GetType().GetProperties())
+            {
+                if (property.GetValue(info, null) == null)
+                {
+                    property.SetValue(info, dbUser.Info.GetType().GetProperty(property.Name).GetValue(dbUser.Info, null));
+                }
+            }
+
+            dbUser.Info = _mapper.Map<UserInfo>(info);
+
+            await _context.SaveChangesAsync();
+
+            return info;
         }
     }
 }
