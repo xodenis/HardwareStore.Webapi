@@ -94,7 +94,8 @@ namespace HardwareStore.Webapi
 
             services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddTransient<IUserService, UserService>();
-
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICategoryService, CategoryService>();
 
             services.AddAutoMapper(typeof(AppMappingProfile));
         }

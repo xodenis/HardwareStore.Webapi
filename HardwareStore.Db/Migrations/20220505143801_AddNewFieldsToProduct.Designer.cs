@@ -4,14 +4,16 @@ using HardwareStore.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HardwareStore.Db.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220505143801_AddNewFieldsToProduct")]
+    partial class AddNewFieldsToProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,21 +63,6 @@ namespace HardwareStore.Db.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("CartProducts");
-                });
-
-            modelBuilder.Entity("HardwareStore.Db.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("HardwareStore.Db.Models.Favorites", b =>
@@ -175,9 +162,6 @@ namespace HardwareStore.Db.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Characteristics")
                         .HasColumnType("nvarchar(max)");
 
@@ -193,39 +177,12 @@ namespace HardwareStore.Db.Migrations
                     b.Property<string>("PriceInfo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SubcategoryId")
-                        .HasColumnType("int");
-
                     b.Property<int>("TotalCount")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("SubcategoryId");
-
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("HardwareStore.Db.Models.Subcategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Subcategories");
                 });
 
             modelBuilder.Entity("HardwareStore.Db.Models.User", b =>
@@ -355,30 +312,6 @@ namespace HardwareStore.Db.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("HardwareStore.Db.Models.Product", b =>
-                {
-                    b.HasOne("HardwareStore.Db.Models.Category", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId");
-
-                    b.HasOne("HardwareStore.Db.Models.Subcategory", "Subcategory")
-                        .WithMany("Products")
-                        .HasForeignKey("SubcategoryId");
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Subcategory");
-                });
-
-            modelBuilder.Entity("HardwareStore.Db.Models.Subcategory", b =>
-                {
-                    b.HasOne("HardwareStore.Db.Models.Category", "Category")
-                        .WithMany("Subcategories")
-                        .HasForeignKey("CategoryId");
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("HardwareStore.Db.Models.UserInfo", b =>
                 {
                     b.HasOne("HardwareStore.Db.Models.User", "User")
@@ -386,13 +319,6 @@ namespace HardwareStore.Db.Migrations
                         .HasForeignKey("HardwareStore.Db.Models.UserInfo", "UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("HardwareStore.Db.Models.Category", b =>
-                {
-                    b.Navigation("Products");
-
-                    b.Navigation("Subcategories");
                 });
 
             modelBuilder.Entity("HardwareStore.Db.Models.Order", b =>
@@ -403,11 +329,6 @@ namespace HardwareStore.Db.Migrations
             modelBuilder.Entity("HardwareStore.Db.Models.Product", b =>
                 {
                     b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("HardwareStore.Db.Models.Subcategory", b =>
-                {
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("HardwareStore.Db.Models.User", b =>
