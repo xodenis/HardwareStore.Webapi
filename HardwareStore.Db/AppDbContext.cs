@@ -21,6 +21,10 @@ namespace HardwareStore.Db
 
         public DbSet<Favorites> Favorites { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Subcategory> Subcategories { get; set; }
+
         public DbSet<OrdersProducts> OrdersProducts { get; set; }
 
         public DbSet<CartProducts> CartProducts { get; set; }

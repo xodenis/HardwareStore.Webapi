@@ -24,6 +24,8 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
+        "JWT_SECRET": "secretkey1234567",
+        "JWT_ISSUER": "Hardware Store",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": "true",
