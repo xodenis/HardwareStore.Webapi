@@ -34,9 +34,9 @@ namespace HardwareStore.Core.Services
             return _mapper.Map<ProductFullDto>(product);
         }
 
-        public async Task<List<ProductFullDto>> GetAll()
+        public async Task<List<ProductShortDto>> GetAll()
         {
-            return _mapper.Map<List<ProductFullDto>>(
+            return _mapper.Map<List<ProductShortDto>>(
                 await _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.Subcategory)
