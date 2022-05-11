@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HardwareStore.Db.Models
 {
@@ -8,5 +9,7 @@ namespace HardwareStore.Db.Models
 
         [ForeignKey("UserId")]
         public User User { get; set; }
+
+        public List<FavoritesProducts> Products { get; set; }
     }
 }

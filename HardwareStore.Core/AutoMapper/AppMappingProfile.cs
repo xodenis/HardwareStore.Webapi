@@ -19,6 +19,10 @@ namespace HardwareStore.Core.AutoMapper
 			CreateMap<Product, ProductFullDto>()
 				.ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Category.Id))
 				.ForMember(dest => dest.SubcategoryId, opt => opt.MapFrom(src => src.Subcategory.Id));
+			CreateMap<Product, ProductShortDto>();
+			CreateMap<Cart, CartDto>()
+				.ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.Id));
+			CreateMap<CartProducts, CartProductsDto>();
 		}
 	}
 }

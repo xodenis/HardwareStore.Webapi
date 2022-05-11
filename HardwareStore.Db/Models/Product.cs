@@ -21,6 +21,10 @@ namespace HardwareStore.Db.Models
 
         public List<OrdersProducts> Orders { get; set; }
 
+        public List<CartProducts> Carts { get; set; }
+
+        public List<FavoritesProducts> Favorites { get; set; }
+
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 
