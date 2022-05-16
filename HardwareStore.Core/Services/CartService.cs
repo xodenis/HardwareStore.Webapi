@@ -55,7 +55,12 @@ namespace HardwareStore.Core.Services
             }
             else
             {
-                cart.Products.Add(new CartProducts() { Count = count, Product = product });
+                var checkProduct = await _context.CartProducts.FirstOrDefaultAsync(p => p.Product.Id.Equals(product.Id));
+
+                if (checkProduct != null)
+                    checkProduct.Count += count;
+                else
+                    cart.Products.Add(new CartProducts() { Count = count, Product = product });
             }
 
             await _context.SaveChangesAsync();
