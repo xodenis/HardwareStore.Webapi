@@ -32,6 +32,34 @@ namespace HardwareStore.Webapi.Controllers
             }
         }
 
+        [HttpGet("get_by_category")]
+        public async Task<IActionResult> GetByCategory(int categoryId)
+        {
+            try
+            {
+                var result = await _productService.GetByCategory(categoryId);
+                return Created("", result);
+            }
+            catch (ProductNotFoundException e)
+            {
+                return StatusCode(404, e.Message);
+            }
+        }
+
+        [HttpGet("get_by_subcategory")]
+        public async Task<IActionResult> GetBySubcategory(int subcategoryId)
+        {
+            try
+            {
+                var result = await _productService.GetBySubcategory(subcategoryId);
+                return Created("", result);
+            }
+            catch (ProductNotFoundException e)
+            {
+                return StatusCode(404, e.Message);
+            }
+        }
+
         [HttpGet("get_all")]
         public async Task<IActionResult> GetAll()
         {

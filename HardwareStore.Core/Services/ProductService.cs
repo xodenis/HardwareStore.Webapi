@@ -7,6 +7,7 @@ using HardwareStore.Db.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HardwareStore.Core.Services
@@ -32,6 +33,24 @@ namespace HardwareStore.Core.Services
             if (product == null) throw new ProductNotFoundException("Товар с таким Id не найден.");
 
             return _mapper.Map<ProductFullDto>(product);
+        }
+
+        public async Task<List<ProductShortDto>> GetByCategory(int categoryId)
+        {
+            var products = await _context.Products
+                .Where(p => p.Category.Id.Equals(categoryId))
+                .ToListAsync();
+
+            return _mapper.Map<List<ProductShortDto>>(products);
+        }
+
+        public async Task<List<ProductShortDto>> GetBySubcategory(int subcategoryId)
+        {
+            var products = await _context.Products
+                .Where(p => p.Subcategory.Id.Equals(subcategoryId))
+                .ToListAsync();
+
+            return _mapper.Map<List<ProductShortDto>>(products);
         }
 
         public async Task<List<ProductShortDto>> GetAll()
