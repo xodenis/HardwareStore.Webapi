@@ -104,5 +104,22 @@ namespace HardwareStore.Core.Services
 
             return _mapper.Map<CartDto>(cart);
         }
+
+        public async Task<CartDto> ChangeProductCount(int userId, int productId, int newCount)
+        {
+            var cart = await _context.Carts
+                .Include(c => c.User)
+                .Include(c => c.Products)
+                .ThenInclude(p => p.Product)
+                .FirstOrDefaultAsync(c => c.User.Id.Equals(userId));
+
+            var product = await _context.CartProducts.FirstOrDefaultAsync(cp => cp.Cart.User.Id.Equals(userId) && cp.Product.Id.Equals(productId));
+
+            product.Count = newCount;
+
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<CartDto>(cart);
+        }
     }
 }

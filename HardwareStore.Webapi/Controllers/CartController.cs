@@ -82,5 +82,19 @@ namespace HardwareStore.Webapi.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpPut("change_count")]
+        public async Task<IActionResult> ChangeProductCount(int productId, int newCount)
+        {
+            try
+            {
+                var result = await _cartService.ChangeProductCount(UserId, productId, newCount);
+                return Created("", result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }

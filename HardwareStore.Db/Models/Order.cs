@@ -12,6 +12,10 @@ namespace HardwareStore.Db.Models
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
+        public string PaymentMethod { get; set; }
+
+        public string DeliveryType { get; set; }
+
         public double Price { get; set; }
 
         public Status Status { get; set; }
@@ -25,6 +29,7 @@ namespace HardwareStore.Db.Models
 
     public enum Status
     {
+        Created,
         InDelivery,
         PendingInStore,
         Completed

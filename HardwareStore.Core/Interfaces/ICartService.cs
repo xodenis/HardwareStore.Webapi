@@ -10,5 +10,6 @@ namespace HardwareStore.Core.Interfaces
         Task<CartDto> Add(int userId, int productId, int count);
         Task<CartDto> Remove(int userId, int productId);
         Task<CartDto> RemoveRange(int userId);
+        Task<CartDto> ChangeProductCount(int userId, int productId, int newCount);
     }
 }

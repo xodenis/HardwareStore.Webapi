@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using HardwareStore.Core.Dto;
 using HardwareStore.Db.Models;
-using System.IO;
 
 namespace HardwareStore.Core.AutoMapper
 {
@@ -23,6 +22,9 @@ namespace HardwareStore.Core.AutoMapper
 			CreateMap<Cart, CartDto>()
 				.ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.Id));
 			CreateMap<CartProducts, CartProductsDto>();
+			CreateMap<Order, OrderDto>()
+				.ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.Id));
+			CreateMap<OrdersProducts, OrdersProductsDto>();
 		}
 	}
 }
