@@ -25,6 +25,9 @@ namespace HardwareStore.Core.AutoMapper
 			CreateMap<Order, OrderDto>()
 				.ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.Id));
 			CreateMap<OrdersProducts, OrdersProductsDto>();
+			CreateMap<Favorites, FavoritesDto>()
+				.ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.Id));
+			CreateMap<FavoritesProducts, FavoritesProductsDto>();
 		}
 	}
 }

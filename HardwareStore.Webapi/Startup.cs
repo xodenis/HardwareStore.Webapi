@@ -98,6 +98,7 @@ namespace HardwareStore.Webapi
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ICartService, CartService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IFavoritesService, FavoritesService>();
 
             services.AddAutoMapper(typeof(AppMappingProfile));
         }
