@@ -63,6 +63,8 @@ namespace HardwareStore.Core.Services
                     cart.Products.Add(new CartProducts() { Count = count, Product = product });
             }
 
+            _context.UserActions.Add(new UserAction() { UserId = userId, ProductId = productId });
+
             await _context.SaveChangesAsync();
             
             return _mapper.Map<CartDto>(cart);

@@ -47,6 +47,8 @@ namespace HardwareStore.Core.Services
                 totalPrice += product.Price * item.Count;
                 products.Add(new OrdersProducts() { Count = item.Count, Product = product });
                 product.TotalCount -= item.Count;
+
+                _context.UserActions.Add(new UserAction() { UserId = userId, ProductId = product.Id });
             }
 
             var newOrder = new Order() { Date = DateTime.Now.Date, PaymentMethod = order.PaymentMethod, DeliveryType = order.DeliveryType, Price = totalPrice, Products = products, Status = Status.Created, User = user };

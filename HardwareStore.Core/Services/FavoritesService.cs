@@ -75,6 +75,8 @@ namespace HardwareStore.Core.Services
 
             favorites.Products.Add(new FavoritesProducts() { Product = product });
 
+            _context.UserActions.Add(new UserAction() { UserId = userId, ProductId = productId });
+
             await _context.SaveChangesAsync();
 
             return _mapper.Map<FavoritesDto>(favorites);
@@ -94,7 +96,7 @@ namespace HardwareStore.Core.Services
 
             if (removedProduct == null) throw new ProductNotFoundException("Товар с таким Id не найден.");
 
-            favorites.Products.Remove(removedProduct);
+            _context.FavoritesProducts.Remove(removedProduct);
 
             await _context.SaveChangesAsync();
 

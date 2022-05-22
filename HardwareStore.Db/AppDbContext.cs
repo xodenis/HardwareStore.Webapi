@@ -30,5 +30,7 @@ namespace HardwareStore.Db
         public DbSet<CartProducts> CartProducts { get; set; }
 
         public DbSet<FavoritesProducts> FavoritesProducts { get; set; }
+
+        public DbSet<UserAction> UserActions { get; set; }
     }
 }
