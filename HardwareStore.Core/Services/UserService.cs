@@ -31,14 +31,16 @@ namespace HardwareStore.Core.Services
 
             if (dbUser == null ||
                 dbUser.Password == null ||
-                _passwordHasher.VerifyHashedPassword(dbUser, dbUser.Password, loginRequest.Password) == PasswordVerificationResult.Failed)
+                _passwordHasher.VerifyHashedPassword(
+                    dbUser,
+                    dbUser.Password, loginRequest.Password) == PasswordVerificationResult.Failed)
             {
                 throw new InvalidUsernameOrPasswordException("Неверное имя пользователя или пароль.");
             }
 
             return new AuthInfo()
             {
-                Token = JwtGenerator.GenerateAuthToken(dbUser)
+                Token = JwtGenerator.GetAuthToken(dbUser)
             };
         }
 
@@ -78,14 +80,6 @@ namespace HardwareStore.Core.Services
             var dbUser = await _context.Users.Include(u => u.Info).FirstOrDefaultAsync(u => u.Id.Equals(userId));
 
             if (dbUser == null) throw new UserNotFoundException("Пользователь не найден.");
-
-            foreach(var property in info.GetType().GetProperties())
-            {
-                if (property.GetValue(info, null) == null)
-                {
-                    property.SetValue(info, dbUser.Info.GetType().GetProperty(property.Name).GetValue(dbUser.Info, null));
-                }
-            }
 
             dbUser.Info = _mapper.Map<UserInfo>(info);
 

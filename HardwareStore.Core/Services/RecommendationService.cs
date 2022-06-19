@@ -3,17 +3,14 @@ using HardwareStore.Core.Dto;
 using HardwareStore.Core.Interfaces;
 using HardwareStore.Db;
 using HardwareStore.Db.Models;
-using IronPython.Hosting;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Scripting.Hosting;
 using MyMediaLite.Data;
 using MyMediaLite.IO;
 using MyMediaLite.ItemRecommendation;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HardwareStore.Core.Services
@@ -34,33 +31,6 @@ namespace HardwareStore.Core.Services
         {
             _context = context;
             _mapper = mapper;
-        }
-
-        public void Train()
-        {
-            using SqlConnection connection = new(ConnectionString);
-            SqlCommand command = new(QueryString, connection);
-            connection.Open();
-
-            Recommender.UpdateItems = true;
-
-            SqlDataReader reader = command.ExecuteReader();
-
-            var training_data = ItemData.Read(reader, user_mapping, item_mapping);
-            Recommender.Feedback = training_data;
-            Recommender.Train();
-            Recommender.SaveModel("RecommendationsModel");
-
-            connection.Close();
-        }
-
-        public void AddFeedback(ICollection<Tuple<int, int>> feedback)
-        {
-            Recommender.LoadModel("RecommendationsModel");
-
-            Recommender.AddFeedback(feedback);
-
-            Recommender.SaveModel("RecommendationsModel");
         }
 
         public async Task<List<ProductShortDto>> GetUserRecommendations(int userId)
@@ -97,7 +67,8 @@ namespace HardwareStore.Core.Services
             System.Diagnostics.ProcessStartInfo start = new System.Diagnostics.ProcessStartInfo
             {
                 FileName = @"C:\Python310\python.exe",
-                Arguments = string.Format("{0} {1}", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ItemBasedRecommender.py"), productId),
+                Arguments = string.Format("{0} {1}", Path.Combine(
+                    AppDomain.CurrentDomain.BaseDirectory, "ItemBasedRecommender.py"), productId),
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 RedirectStandardOutput = true,

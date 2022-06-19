@@ -9,7 +9,7 @@ namespace HardwareStore.Core.Utils
 {
     public class JwtGenerator
     {
-        public static string GenerateAuthToken(User user)
+        public static string GetAuthToken(User user)
         {
             var claims = new Claim[]
             {
@@ -18,11 +18,6 @@ namespace HardwareStore.Core.Utils
 
             };
 
-            return GenerateToken(claims, DateTime.UtcNow.AddHours(1));
-        }
-
-        private static string GenerateToken(Claim[] claims, DateTime expires)
-        {
             var tokenHandler = new JwtSecurityTokenHandler();
             var secret = Environment.GetEnvironmentVariable("JWT_SECRET");
             var issuer = Environment.GetEnvironmentVariable("JWT_ISSUER");
@@ -30,7 +25,7 @@ namespace HardwareStore.Core.Utils
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = expires,
+                Expires = DateTime.UtcNow.AddHours(1),
                 Issuer = issuer,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

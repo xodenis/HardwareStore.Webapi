@@ -13,7 +13,6 @@ con = pyodbc.connect(
     SERVER=(localdb)\\mssqllocaldb;
     DATABASE=HardwareStoreDB;
     Integrated Security=True""")
-
 # Putting products data on 'products' dataframe
 products = pd.read_sql(
     """SELECT p.Id, p.Name, p.Price, p.Characteristics, c.Name, sb.Name 
@@ -22,7 +21,6 @@ products = pd.read_sql(
     ON p.CategoryId=c.Id 
     INNER JOIN Subcategories as sb 
     ON p.SubcategoryId=sb.Id""", con)
-
 products.columns = ['Id', 'Name', 'Price',
                     'Characteristics', 'Category', 'Subcategory']
 
@@ -36,20 +34,16 @@ def concatenate_features(df_row):
 products['Features'] = products.apply(concatenate_features, axis=1)
 
 tfidf = TfidfVectorizer()
-
-# Construct the required TF-IDF matrix by applying the fit_transform method on the Characteristics feature
+# Construct the required TF-IDF matrix by applying the fit_transform
+# method on the Characteristics feature
 characteristics_matrix = tfidf.fit_transform(products['Features'])
-
 # Find the similarity matrix using linear_kernel function
 similarity_matrix = linear_kernel(
     characteristics_matrix, characteristics_matrix)
-
 # Products index mapping
 mapping = pd.Series(products.index, index=products['Id'])
 
 # Recommender function that recommend products using cosine_similarity
-
-
 def recommend_products(product_input):
     product_index = mapping[product_input]
 
@@ -62,7 +56,7 @@ def recommend_products(product_input):
         similarity_score, key=lambda x: x[1], reverse=True)
 
     # Get the scores of the 5 most similar products. Ignore the first product.
-    similarity_score = similarity_score[1:5]
+    similarity_score = similarity_score[1:6]
 
     # Return product Id using the mapping series
     product_indices = [i[0] for i in similarity_score]

@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace HardwareStore.Webapi.Controllers
 {
     [ApiController]
-    
     [Route("recommendations")]
     public class RecommendationsController : ControllerBase
     {
@@ -20,20 +19,6 @@ namespace HardwareStore.Webapi.Controllers
         public RecommendationsController(IRecommendationService recommendationService)
         {
             _recommendationService = recommendationService;
-        }
-        [Authorize]
-        [HttpPost("train")]
-        public IActionResult Train()
-        {
-            try
-            {
-                _recommendationService.Train();
-                return Ok("Модель обучена");
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e.Message);
-            }
         }
         [Authorize]
         [HttpGet("get_by_user")]
